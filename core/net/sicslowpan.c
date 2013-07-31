@@ -72,7 +72,7 @@
 
 #include <stdio.h>
 
-#define DEBUG DEBUG_NONE
+#define DEBUG DEBUG_PRINT
 #include "net/uip-debug.h"
 #if DEBUG
 /* PRINTFI and PRINTFO are defined for input and output to debug one without changing the timing of the other */
@@ -191,7 +191,7 @@ extern struct sicslowpan_nh_compressor SICSLOWPAN_NH_COMPRESSOR;
  * We initialize it to the beginning of the rime buffer, then
  * access different fields by updating the offset rime_hdr_len.
  */
-static uint8_t *rime_ptr;
+uint8_t *rime_ptr;
 
 /**
  * rime_hdr_len is the total length of (the processed) 6lowpan headers
@@ -225,14 +225,14 @@ static int last_tx_status;
  *  @{
  */
 
-static uint16_t sicslowpan_len;
+uint16_t sicslowpan_len;
 
 /**
  * The buffer used for the 6lowpan reassembly.
  * This buffer contains only the IPv6 packet (no MAC header, 6lowpan, etc).
  * It has a fix size as we do not use dynamic memory allocation.
  */
-static uip_buf_t sicslowpan_aligned_buf;
+uip_buf_t sicslowpan_aligned_buf;
 #define sicslowpan_buf (sicslowpan_aligned_buf.u8)
 
 /** The total length of the IPv6 packet in the sicslowpan_buf. */
@@ -241,19 +241,19 @@ static uip_buf_t sicslowpan_aligned_buf;
  * length of the ip packet already sent / received.
  * It includes IP and transport headers.
  */
-static uint16_t processed_ip_in_len;
+uint16_t processed_ip_in_len;
 
 /** Datagram tag to be put in the fragments I send. */
-static uint16_t my_tag;
+uint16_t my_tag;
 
 /** When reassembling, the tag in the fragments being merged. */
-static uint16_t reass_tag;
+uint16_t reass_tag;
 
 /** When reassembling, the source address of the fragments being merged */
 rimeaddr_t frag_sender;
 
 /** Reassembly %process %timer. */
-static struct timer reass_timer;
+struct timer reass_timer;
 
 /** @} */
 #else /* SICSLOWPAN_CONF_FRAG */
@@ -319,12 +319,11 @@ set_packet_attrs()
 
 /** Addresses contexts for IPHC. */
 #if SICSLOWPAN_CONF_MAX_ADDR_CONTEXTS > 0
-static struct sicslowpan_addr_context 
-addr_contexts[SICSLOWPAN_CONF_MAX_ADDR_CONTEXTS];
+struct sicslowpan_addr_context addr_contexts[SICSLOWPAN_CONF_MAX_ADDR_CONTEXTS];
 #endif
 
 /** pointer to an address context. */
-static struct sicslowpan_addr_context *context;
+struct sicslowpan_addr_context *context;
 
 /** pointer to the byte where to write next inline field. */
 static uint8_t *hc06_ptr;

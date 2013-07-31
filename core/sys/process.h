@@ -362,7 +362,7 @@ CCIF void process_start(struct process *p, const char *arg);
  * \retval PROCESS_ERR_FULL The event queue was full and the event could
  * not be posted.
  */
-CCIF int process_post(struct process *p, process_event_t ev, void* data);
+//CCIF int process_post(struct process *p, process_event_t ev, void* data);
 
 /**
  * Post a synchronous event to a process.
@@ -374,8 +374,7 @@ CCIF int process_post(struct process *p, process_event_t ev, void* data);
  * \param data A pointer to additional data that is posted together
  * with the event.
  */
-CCIF void process_post_synch(struct process *p,
-			     process_event_t ev, void* data);
+//CCIF void process_post_synch(struct process *p, process_event_t ev, void* data);
 
 /**
  * \brief      Cause a process to exit
