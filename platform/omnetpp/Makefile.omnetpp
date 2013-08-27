@@ -3,13 +3,15 @@ ifndef CONTIKI
 endif
 
 ifdef UIP_CONF_IPV6
-CFLAGS += -DWITH_UIP6=1
+  CFLAGS += -DWITH_UIP6=1
+else
+  ${error ERROR - Contiki-4-OMNeT needs UIPv6 support!!! Enable UIP_CONF_IPV6 in your project makefile!}
 endif
 
 CONTIKI_TARGET_DIRS = . dev
 CONTIKI_TARGET_MAIN = ${addprefix $(OBJECTDIR)/,contiki-main.o}
 
-CONTIKI_TARGET_SOURCEFILES = contiki-main.c clock.c leds.c leds-arch.c checkpoint-arch.c cfs-posix.c
+CONTIKI_TARGET_SOURCEFILES = contiki-main.c clock.c leds.c leds-arch.c ###checkpoint-arch.c cfs-posix.c
 
 CONTIKI_SOURCEFILES += $(CONTIKI_TARGET_SOURCEFILES)
 
@@ -21,7 +23,8 @@ CONTIKI_SOURCEFILES += $(CONTIKI_TARGET_SOURCEFILES)
 CONTIKI_CPU=$(CONTIKI)/platform/omnetpp
 CONTIKI_CPU_DIRS = . net
 
-CONTIKI_SOURCEFILES += mtarch.c rtimer-arch.c elfloader-stub.c symtab.c announcement.c watchdog.c contract.c
+CONTIKI_SOURCEFILES += mtarch.c rtimer-arch.c symtab.c announcement.c watchdog.c contract.c
+###CONTIKI_SOURCEFILES += mtarch.c rtimer-arch.c elfloader-stub.c symtab.c announcement.c watchdog.c contract.c
 
 ### Compiler definitions
 CC       = gcc
